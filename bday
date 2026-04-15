@@ -1,0 +1,59 @@
+##################### Hard Starting Project ######################
+import datetime as dt
+import random
+import pandas
+import smtplib
+# 1. Update the birthdays.csv with your friends & family's details.
+# HINT: Make sure one of the entries matches today's date for testing purposes. 
+
+# 2. Check if today matches a birthday in the birthdays.csv
+# HINT 1: Only the month and day matter.
+now = dt.datetime.now()
+
+today = (now.month,now.day,)
+birthday = pandas.read_csv("birthdays.csv")
+# HINT 2: You could create a dictionary from birthdays.csv that looks like this:
+# birthdays_dict = {
+#     (month, day): data_row
+#df=pandas.DataFrame(birthday)
+day_extract=(birthday["day"])
+month_extract= (birthday["month"])
+bd_dictionary= {(row.month,row.day):(row.name,row.email,row.year,row.month,row.day) for
+                index,row in birthday.iterrows()}
+print(bd_dictionary)
+
+#HINT 3: Then you could compare and see if today's month/day matches one of the keys in birthday_dict like this:
+# if (today_month, today_day) in birthdays_dict:
+if today in bd_dictionary :
+
+    print(bd_dictionary[today])
+else:
+ print("dictionary")
+
+user= (bd_dictionary[today])
+name=(user[0])
+email=(user[1])
+
+
+# 3. If step 2 is true, pick a random letter from letter templates and replace the [NAME] with the person's actual name from birthdays.csv
+# HINT: https://www.w3schools.com/python/ref_string_replace.asp
+
+letters=["letter_1.txt","letter_2.txt","letter_3.txt"]
+random_letter=random.choice(letters)
+
+with open (random_letter,"r") as file:
+    txt = file.read()
+    x=txt.replace("[NAME]",f"{name}")
+    print(x)
+# 4. Send the letter generated in step 3 to that person's email address.
+# HINT: Gmail(smtp.gmail.com), Yahoo(smtp.mail.yahoo.com), Hotmail(smtp.live.com), Outlook(smtp-mail.outlook.com)
+
+my_email="dnew94125@gmail.com"
+password="lhwsufdnioefhwna"
+
+with smtplib.SMTP("smtp.gmail.com") as connection:
+
+    connection.starttls()
+    connection.login(user=my_email,password=password)
+    connection.sendmail(from_addr="dnew94125@gmail.com",to_addrs="dnew94125@gmail.com",msg=f"Subject:Happy birthday \n\n {x}")
+    connection.close()
