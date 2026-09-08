@@ -48,8 +48,8 @@ with open (random_letter,"r") as file:
 # 4. Send the letter generated in step 3 to that person's email address.
 # HINT: Gmail(smtp.gmail.com), Yahoo(smtp.mail.yahoo.com), Hotmail(smtp.live.com), Outlook(smtp-mail.outlook.com)
 
-my_email="dnew94125@gmail.com"
-password="lhwsufdnioefhwna"
+my_email="EMAIL"
+password="PASSWORD"
 
 with smtplib.SMTP("smtp.gmail.com") as connection:
 
